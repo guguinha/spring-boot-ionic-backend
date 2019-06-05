@@ -28,6 +28,11 @@ public class CategoriaService {
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
 	
+	public Categoria insert(Categoria obj) {
+		obj.setId(null);
+		return repo.save(obj);
+	}
+	
 	public List<Categoria> findAll() {
 		return repo.findAll();
 	}
@@ -35,11 +40,6 @@ public class CategoriaService {
 	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
-	}
-	
-	public Categoria insert(Categoria obj) {
-		obj.setId(null);
-		return repo.save(obj);
 	}
 	
 	public Categoria update(Categoria obj) {
