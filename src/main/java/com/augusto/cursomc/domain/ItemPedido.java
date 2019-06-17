@@ -27,9 +27,15 @@ public class ItemPedido implements Serializable {
 		super();
 		id.setPedido(pedido);
 		id.setProduto(produto);
-		this.desconto = desconto;
+		/* Desconto recebido sera o valor em porcentagem
+		 * Desconto salvo já é o valor do desconto */
+		this.desconto = preco * (desconto/100);
 		this.quantidade = quantidade;
 		this.preco = preco;
+	}
+	
+	public double getSubTotal() {
+		return (preco - desconto) * quantidade;
 	}
 	
 	@JsonIgnore
