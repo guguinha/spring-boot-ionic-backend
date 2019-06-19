@@ -51,8 +51,14 @@ public class PedidoService {
 		obj = repo.save(obj);
 		pagamentoRepository.save(obj.getPagamento());
 		for (ItemPedido ip : obj.getItens()) {
-			ip.setDesconto(0.0);
 			ip.setPreco(produtoService.find(ip.getProduto().getId()).getPreco());
+			/* Json pode ou não informar um desconto */
+			if (ip.getDesconto() != null) {
+				/* Caso desconto seja informado ele é considerado em porcentagem e recalculado para o valor a ser descontado  */
+				ip.setDesconto(ip.getDesconto());
+			}else {
+				ip.setDesconto(0.0);
+			}
 			ip.setPedido(obj);
 		}
 		itemPedidoRepository.saveAll(obj.getItens());

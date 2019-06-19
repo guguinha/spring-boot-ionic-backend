@@ -67,8 +67,13 @@ public class ItemPedido implements Serializable {
 		return desconto;
 	}
 
+	/* O valor do desconto é feito em porcentagem sobre o valor do Item */ 
 	public void setDesconto(Double desconto) {
-		this.desconto = desconto;
+		if (preco != null) {
+			this.desconto = preco*(desconto/100.0);
+		}else { // Caso o desconto seja setado antes do preço o desconto sera o valor recebido
+			this.desconto = desconto;
+		}
 	}
 
 	public Integer getQuantidade() {
