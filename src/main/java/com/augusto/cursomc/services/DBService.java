@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.augusto.cursomc.domain.Categoria;
@@ -34,6 +35,8 @@ import com.augusto.cursomc.repositories.ProdutoRepository;
 @Service
 public class DBService {
 
+	@Autowired
+	BCryptPasswordEncoder pe;
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 	@Autowired
@@ -117,7 +120,7 @@ public class DBService {
 		estadoRepository.saveAll(Arrays.asList(est1,est2,est3));
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3,c4));
 		
-		Cliente cli1 = new Cliente(null, "Maria Silva", recipient, "36378912377", TipoCliente.PESSOAFISICA);
+		Cliente cli1 = new Cliente(null, "Maria Silva", recipient, "36378912377", TipoCliente.PESSOAFISICA, pe.encode("123"));
 		
 		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 		
